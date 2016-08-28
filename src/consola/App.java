@@ -2,6 +2,7 @@ package consola;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -34,5 +35,15 @@ public class App {
 			System.out.println(linea);
 		
 		bfr.close();
+		
+//		trabajar a nivel de tipos primitivo
+//		===================================
+		DataInputStream dfin = new DataInputStream(
+				new BufferedInputStream(
+						new FileInputStream("c:/Temp/demo.txt")));
+		
+//		long valor = dfin.readLong(); //permite tipos primitivos
+		
+		dfin.close();
 	}
 }//fin class consola.App
