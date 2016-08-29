@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.time.Month;
@@ -117,11 +118,27 @@ public class App {
 //				new BufferedOutputStream(new FileOutputStream("c:/Temp/escribir_objetos.txt"))) 
 //				){
 //			
-//			dfout.writeObject(p1);
+//		Tiene que implementar la interfaz Serializable
+//		guarda automáticamente todas las propiedades no estáticas de un objeto, 
+//		entonces las propiedades estáticas no se guardan
+//			dfout.writeObject(p1); //
 //		}catch(IOException ex){
 //			ex.getStackTrace(); 
 //		}
 		
-		
+//		Leer fichero el contenido de un objeto Persona
+//		==============================================
+		try(ObjectInputStream ofin = new ObjectInputStream( 
+				new BufferedInputStream( new FileInputStream("c:/Temp/escribir_objetos.txt")))
+				){
+			
+			Persona p = (Persona) ofin.readObject();
+			System.out.println(p); 
+			
+		}catch(IOException ex){
+			ex.getStackTrace(); 
+		} catch (ClassNotFoundException ex) {
+			ex.printStackTrace();
+		}
 	}
 }//fin class consola.App
