@@ -3,11 +3,13 @@ package consola;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class App {
@@ -83,6 +85,18 @@ public class App {
 			dfout.writeLong(22222222L); 
 			dfout.writeBoolean(true); 
 		}catch(IOException ex){
+			ex.getStackTrace(); 
+		}
+		
+//		trabajar a nivel de carácter
+//		============================
+		try(BufferedWriter bfw = new BufferedWriter(
+				new FileWriter("c:/Temp/escribir_caracteres.txt"))
+				){
+			
+			bfw.write("cadena 1");
+			bfw.write("cadena 2");
+		}catch (IOException ex) {
 			ex.getStackTrace(); 
 		}
 		
