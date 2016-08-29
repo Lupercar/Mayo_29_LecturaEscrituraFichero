@@ -1,15 +1,24 @@
 package consola;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class App {
 
 	public static void main(String[] args) throws IOException {
+		
+//		LECTURA
+//		==============================================================
+//		==============================================================
+		
+		
 //		trabajar a nivel de bytes.
 //		==========================
 		
@@ -59,5 +68,23 @@ public class App {
 		} catch (IOException ex) {
 			ex.getStackTrace(); 
 		}
+		
+//		ESCRITURA
+//		=======================================================================
+//		=======================================================================
+
+//		trabajar a nivel de tipos primitivo escritura
+//		=============================================
+		try(DataOutputStream dfout = new DataOutputStream(new BufferedOutputStream(
+				new FileOutputStream("c:/Temp/escribir_byte.txt")))
+				){
+			dfout.writeUTF("cadena"); 
+			dfout.writeInt(3); 
+			dfout.writeLong(22222222L); 
+			dfout.writeBoolean(true); 
+		}catch(IOException ex){
+			ex.getStackTrace(); 
+		}
+		
 	}
 }//fin class consola.App
