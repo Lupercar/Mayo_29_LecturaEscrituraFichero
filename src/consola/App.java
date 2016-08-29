@@ -120,7 +120,8 @@ public class App {
 //			
 //		Tiene que implementar la interfaz Serializable
 //		guarda automáticamente todas las propiedades no estáticas de un objeto, 
-//		entonces las propiedades estáticas no se guardan
+//		entonces las propiedades estáticas no se guardan.
+//		No guarda las propiedades marcadas con el modificador transient
 //			dfout.writeObject(p1); //
 //		}catch(IOException ex){
 //			ex.getStackTrace(); 
