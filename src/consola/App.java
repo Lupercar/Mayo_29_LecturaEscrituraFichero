@@ -11,6 +11,11 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.time.LocalDate;
+import java.time.Month;
+
+import entidades.Persona;
 
 public class App {
 
@@ -100,5 +105,21 @@ public class App {
 			ex.getStackTrace(); 
 		}
 		
+//		trabajar a nivel de objetos
+//		============================================
+//		============================================
+		
+//		Crear fichero con el contenido de un objeto Persona
+//		===================================================
+		Persona p1 = new Persona(1, "Pepito", LocalDate.of(1990, Month.FEBRUARY, 3)); 
+		
+		try( ObjectOutputStream dfout = new ObjectOutputStream( 
+				new BufferedOutputStream(new FileOutputStream("c:/Temp/escribir_objetos.txt"))) 
+				){
+			
+			dfout.writeObject(p1);
+		}catch(IOException ex){
+			ex.getStackTrace(); 
+		}
 	}
 }//fin class consola.App
