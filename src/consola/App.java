@@ -111,15 +111,17 @@ public class App {
 		
 //		Crear fichero con el contenido de un objeto Persona
 //		===================================================
-		Persona p1 = new Persona(1, "Pepito", LocalDate.of(1990, Month.FEBRUARY, 3)); 
+//		Persona p1 = new Persona(1, "Pepito", LocalDate.of(1990, Month.FEBRUARY, 3)); 
+//		
+//		try( ObjectOutputStream dfout = new ObjectOutputStream( 
+//				new BufferedOutputStream(new FileOutputStream("c:/Temp/escribir_objetos.txt"))) 
+//				){
+//			
+//			dfout.writeObject(p1);
+//		}catch(IOException ex){
+//			ex.getStackTrace(); 
+//		}
 		
-		try( ObjectOutputStream dfout = new ObjectOutputStream( 
-				new BufferedOutputStream(new FileOutputStream("c:/Temp/escribir_objetos.txt"))) 
-				){
-			
-			dfout.writeObject(p1);
-		}catch(IOException ex){
-			ex.getStackTrace(); 
-		}
+		
 	}
 }//fin class consola.App
