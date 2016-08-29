@@ -45,5 +45,19 @@ public class App {
 //		long valor = dfin.readLong(); //permite tipos primitivos
 		
 		dfin.close();
+		
+//		forma nueva de abrir un canal de entrada o salida que se cierre sólo
+//		a partir de Java7 ---> Try-Catch con recurso
+//		sólo se permiten objetos que implementan la interfaz Closeable.
+//		====================================================================
+		try(BufferedReader bfr2 = new BufferedReader(new FileReader("c:/Temp/demo.txt"));) {
+			
+			String linea2 = ""; 
+			while( (linea2 = bfr2.readLine() ) != null)
+				System.out.println(linea2);
+			
+		} catch (IOException ex) {
+			ex.getStackTrace(); 
+		}
 	}
 }//fin class consola.App
