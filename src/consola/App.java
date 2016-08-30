@@ -112,25 +112,27 @@ public class App {
 		
 //		Crear fichero con el contenido de un objeto Persona
 //		===================================================
-//		Persona p1 = new Persona(1, "Pepito", LocalDate.of(1990, Month.FEBRUARY, 3)); 
-//		
-//		try( ObjectOutputStream dfout = new ObjectOutputStream( 
-//				new BufferedOutputStream(new FileOutputStream("c:/Temp/escribir_objetos.txt"))) 
-//				){
-//			
+		Persona p1 = new Persona(1, "Pepito", LocalDate.of(1990, Month.FEBRUARY, 5)); 
+		p1.setValor(100);
+		
+		try( ObjectOutputStream dfout = new ObjectOutputStream( 
+				new BufferedOutputStream(new FileOutputStream("c:/Temp/escribir_objetos.txt"))) 
+				){
+			
 //		Tiene que implementar la interfaz Serializable
 //		guarda automáticamente todas las propiedades no estáticas de un objeto, 
 //		entonces las propiedades estáticas no se guardan.
 //		No guarda las propiedades marcadas con el modificador transient
-//			dfout.writeObject(p1); //
-//		}catch(IOException ex){
-//			ex.getStackTrace(); 
-//		}
+			dfout.writeObject(p1); //
+		}catch(IOException ex){
+			ex.getStackTrace(); 
+		}
 		
 //		Leer fichero el contenido de un objeto Persona
 //		==============================================
 		try(ObjectInputStream ofin = new ObjectInputStream( 
-				new BufferedInputStream( new FileInputStream("c:/Temp/escribir_objetos.txt")))
+				new BufferedInputStream( 
+						new FileInputStream("c:/Temp/escribir_objetos.txt")))
 				){
 			
 			Persona p = (Persona) ofin.readObject();
