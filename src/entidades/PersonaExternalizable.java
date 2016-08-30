@@ -1,13 +1,17 @@
 package entidades;
 
+import java.io.Externalizable;
 import java.io.IOException;
+import java.io.ObjectInput;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
-public class PersonaExternalizable implements Serializable{
+public class PersonaExternalizable implements Externalizable, Serializable{
 	
 	private static final long serialVersionUID = -7849462454739765129L;
 	private int codigo;
@@ -83,26 +87,24 @@ public class PersonaExternalizable implements Serializable{
 				", valor2=" + valor2 +
 				"]";
 	}
-	
-//	Personalizar la lectura/escritura de la interfaz serializable
-//	=============================================================
-	private void writeObject(ObjectOutputStream out) throws IOException{
-//		Este método se encarga de la escritura de la serialización
-		//se realiza la escritura por defecto de la serialización.
-		out.defaultWriteObject(); 
-//		Guarda cosas extra
+
+	@Override
+	public void writeExternal(ObjectOutput out) throws IOException {
+		out.writeInt(codigo);
+		out.writeUTF(nombre);
+		out.writeLong(fechaNacimiento.toEpochDay()); //convertimos a long
+		out.writeLong(ultimaActualiacion.toEpochSecond(ZoneOffset.UTC)); //convertimos a long
 		out.writeInt(valor);
 		out.writeInt(valor2);
 	}
 	
-	private void readObject(ObjectInputStream in) throws ClassNotFoundException, IOException{
-//		Este método se encarga de la lectura de la serialización
-		//se realiza la lectura por defecto de la serialización.
-		in.defaultReadObject();
-//		Se guardan en el mismo orden en que se han escrito
+	@Override
+	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+		codigo = in.readInt(); 
+		nombre = in.readUTF();
+		fechaNacimiento.ofEpochDay( in.readLong() ); 
+		ultimaActualiacion.ofEpochSecond( in.readLong(), 0, ZoneOffset.UTC); 
 		valor = in.readInt(); 
 		valor2 = in.readInt(); 
-		
-		this.ultimaActualiacion = LocalDateTime.now(); 
 	}
 }//fin class entidades.Persona
