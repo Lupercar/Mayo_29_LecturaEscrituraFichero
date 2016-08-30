@@ -81,7 +81,7 @@ public class Persona implements Serializable{
 				", UltimaActualización=" + this.ultimaActualiacion +
 				", valor=" + valor +
 				", valor2=" + valor2 +
-				"]";
+				"]\n";
 	}
 	
 //	Personalizar la lectura/escritura de la interfaz serializable

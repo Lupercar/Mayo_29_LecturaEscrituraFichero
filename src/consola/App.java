@@ -14,7 +14,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.time.LocalDate;
-import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 
 import entidades.Persona;
 
@@ -110,20 +111,59 @@ public class App {
 //		============================================
 //		============================================
 		
-//		Crear fichero con el contenido de un objeto Persona
-//		===================================================
-		Persona p1 = new Persona(1, "Pepito", LocalDate.of(1990, Month.FEBRUARY, 5)); 
-		p1.setValor(100);
+////		Crear fichero con el contenido de un objeto Persona
+////		===================================================
+//		Persona p1 = new Persona(1, "Pepito", LocalDate.of(1990, Month.FEBRUARY, 5)); 
+//		p1.setValor(100);
+//		
+//		try( ObjectOutputStream dfout = new ObjectOutputStream( 
+//				new BufferedOutputStream(new FileOutputStream("c:/Temp/escribir_objetos.txt"))) 
+//				){
+//			
+////		Tiene que implementar la interfaz Serializable
+////		guarda automáticamente todas las propiedades no estáticas de un objeto, 
+////		entonces las propiedades estáticas no se guardan.
+////		No guarda las propiedades marcadas con el modificador transient
+//			dfout.writeObject(p1); //
+//		}catch(IOException ex){
+//			ex.getStackTrace(); 
+//		}
+//		
+////		Leer fichero el contenido de un objeto Persona
+////		==============================================
+//		try(ObjectInputStream ofin = new ObjectInputStream( 
+//				new BufferedInputStream( 
+//						new FileInputStream("c:/Temp/escribir_objetos.txt")))
+//				){
+//			
+//			Persona p = (Persona) ofin.readObject();
+//			System.out.println(p); 
+//			
+//		}catch(IOException ex){
+//			ex.getStackTrace(); 
+//		} catch (ClassNotFoundException ex) {
+//			ex.printStackTrace();
+//		}
 		
+//		Guardar una lista Persona
+//		=========================
+		List<Persona> personas = new ArrayList<>(); 
+		personas.add(new Persona(1, "Pepito", LocalDate.of(1990, 1, 1)));
+		personas.add(new Persona(2, "Juanito", LocalDate.of(1991, 2, 2)));
+		personas.add(new Persona(3, "Menganito", LocalDate.of(1992, 3, 3)));
+		
+//		Serializamos
+//		============
+		
+////	Crear fichero con el contenido de lista de Persona
+////	==================================================
 		try( ObjectOutputStream dfout = new ObjectOutputStream( 
-				new BufferedOutputStream(new FileOutputStream("c:/Temp/escribir_objetos.txt"))) 
+				new BufferedOutputStream(
+						new FileOutputStream(
+								"c:/Temp/escribir_lista_objetos.txt"))) 
 				){
 			
-//		Tiene que implementar la interfaz Serializable
-//		guarda automáticamente todas las propiedades no estáticas de un objeto, 
-//		entonces las propiedades estáticas no se guardan.
-//		No guarda las propiedades marcadas con el modificador transient
-			dfout.writeObject(p1); //
+			dfout.writeObject(personas); 
 		}catch(IOException ex){
 			ex.getStackTrace(); 
 		}
@@ -132,10 +172,11 @@ public class App {
 //		==============================================
 		try(ObjectInputStream ofin = new ObjectInputStream( 
 				new BufferedInputStream( 
-						new FileInputStream("c:/Temp/escribir_objetos.txt")))
+						new FileInputStream(
+								"c:/Temp/escribir_lista_objetos.txt")))
 				){
 			
-			Persona p = (Persona) ofin.readObject();
+			List<Persona> p = (List<Persona>) ofin.readObject();
 			System.out.println(p); 
 			
 		}catch(IOException ex){
@@ -143,5 +184,6 @@ public class App {
 		} catch (ClassNotFoundException ex) {
 			ex.printStackTrace();
 		}
+	
 	}
 }//fin class consola.App
