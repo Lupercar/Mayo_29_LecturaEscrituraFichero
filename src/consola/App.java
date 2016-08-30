@@ -1,5 +1,6 @@
 package consola;
 
+import java.beans.XMLEncoder;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -11,8 +12,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -152,38 +152,51 @@ public class App {
 		personas.add(new Persona(2, "Juanito", LocalDate.of(1991, 2, 2)));
 		personas.add(new Persona(3, "Menganito", LocalDate.of(1992, 3, 3)));
 		
-//		Serializamos
-//		============
-		
-////	Crear fichero con el contenido de lista de Persona
-////	==================================================
-		try( ObjectOutputStream dfout = new ObjectOutputStream( 
-				new BufferedOutputStream(
-						new FileOutputStream(
-								"c:/Temp/escribir_lista_objetos.txt"))) 
-				){
-			
-			dfout.writeObject(personas); 
-		}catch(IOException ex){
-			ex.getStackTrace(); 
-		}
-		
-//		Leer fichero el contenido de un objeto Persona
-//		==============================================
-		try(ObjectInputStream ofin = new ObjectInputStream( 
-				new BufferedInputStream( 
-						new FileInputStream(
-								"c:/Temp/escribir_lista_objetos.txt")))
-				){
-			
-			List<Persona> p = (List<Persona>) ofin.readObject();
-			System.out.println(p); 
-			
-		}catch(IOException ex){
-			ex.getStackTrace(); 
-		} catch (ClassNotFoundException ex) {
-			ex.printStackTrace();
-		}
+////		Serializamos
+////		============
+//		
+//////	Crear fichero con el contenido de lista de Persona
+//////	==================================================
+//		try( ObjectOutputStream dfout = new ObjectOutputStream( 
+//				new BufferedOutputStream(
+//						new FileOutputStream(
+//								"c:/Temp/escribir_lista_objetos.txt"))) 
+//				){
+//			
+//			dfout.writeObject(personas); 
+//		}catch(IOException ex){
+//			ex.getStackTrace(); 
+//		}
+//		
+////		Leer fichero el contenido de un objeto Persona
+////		==============================================
+//		try(ObjectInputStream ofin = new ObjectInputStream( 
+//				new BufferedInputStream( 
+//						new FileInputStream(
+//								"c:/Temp/escribir_lista_objetos.txt")))
+//				){
+//			
+//			List<Persona> p = (List<Persona>) ofin.readObject();
+//			System.out.println(p); 
+//			
+//		}catch(IOException ex){
+//			ex.getStackTrace(); 
+//		} catch (ClassNotFoundException ex) {
+//			ex.printStackTrace();
+//		}
 	
+//		Escritura en Formato XML
+//		========================
+		try(XMLEncoder xmlOut = new XMLEncoder(
+				new BufferedOutputStream( 
+						new FileOutputStream(
+								"c:/Temp/escribir_xml.txt")
+						))){
+			
+			xmlOut.writeObject(personas);
+			
+		}catch(IOException ex){
+			ex.getLocalizedMessage(); 
+		}
 	}
 }//fin class consola.App
