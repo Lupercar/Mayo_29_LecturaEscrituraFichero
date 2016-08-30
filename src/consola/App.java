@@ -1,5 +1,6 @@
 package consola;
 
+import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -197,6 +198,20 @@ public class App {
 			
 		}catch(IOException ex){
 			ex.getLocalizedMessage(); 
+		}
+		
+//		Lectura en formato XML
+//		======================
+		try(XMLDecoder xmlIn = new XMLDecoder(
+				new BufferedInputStream(
+						new FileInputStream(
+								"c:/Temp/escribir_xml.txt")
+						))){
+			
+			System.out.println( (List<Persona>) xmlIn.readObject() ); 
+			
+		}catch(IOException ex){
+			ex.getStackTrace(); 
 		}
 	}
 }//fin class consola.App
