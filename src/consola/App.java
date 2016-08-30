@@ -13,10 +13,11 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import entidades.Persona;
 
@@ -186,29 +187,58 @@ public class App {
 //			ex.printStackTrace();
 //		}
 	
-//		Escritura en Formato XML
-//		========================
-		try(XMLEncoder xmlOut = new XMLEncoder(
-				new BufferedOutputStream( 
-						new FileOutputStream(
-								"c:/Temp/escribir_xml.txt")
-						))){
+////		Escritura en Formato XML
+////		========================
+//		try(XMLEncoder xmlOut = new XMLEncoder(
+//				new BufferedOutputStream( 
+//						new FileOutputStream(
+//								"c:/Temp/escribir_xml.txt")
+//						))){
+//			
+//			xmlOut.writeObject(personas);
+//			
+//		}catch(IOException ex){
+//			ex.getLocalizedMessage(); 
+//		}
+//		
+////		Lectura en formato XML
+////		======================
+//		try(XMLDecoder xmlIn = new XMLDecoder(
+//				new BufferedInputStream(
+//						new FileInputStream(
+//								"c:/Temp/escribir_xml.txt")
+//						))){
+//			
+//			System.out.println( (List<Persona>) xmlIn.readObject() ); 
+//			
+//		}catch(IOException ex){
+//			ex.getStackTrace(); 
+//		}
+		
+//		Formato JSON
+//		============
+		ObjectMapper mapper = new ObjectMapper();
+		
+//		Escritura JSON
+		try(BufferedOutputStream out = new BufferedOutputStream( 
+				new FileOutputStream(
+						"c:/Temp/escribir_json.txt")
+				) ){
 			
-			xmlOut.writeObject(personas);
+			mapper.writeValue(out, personas); 
 			
 		}catch(IOException ex){
 			ex.getLocalizedMessage(); 
 		}
 		
-//		Lectura en formato XML
-//		======================
-		try(XMLDecoder xmlIn = new XMLDecoder(
-				new BufferedInputStream(
-						new FileInputStream(
-								"c:/Temp/escribir_xml.txt")
-						))){
+//		Lectura JSON
+		try(BufferedInputStream in = new BufferedInputStream(
+				new FileInputStream(
+						"c:/Temp/escribir_json.txt")
+				)){
 			
-			System.out.println( (List<Persona>) xmlIn.readObject() ); 
+			List<Persona> p = (List<Persona>) mapper.readValue(in, List.class); 
+			System.out.println(p);
 			
 		}catch(IOException ex){
 			ex.getStackTrace(); 
